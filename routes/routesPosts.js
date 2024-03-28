@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { createPost, getAllPostsUser, deletePost } = require("../service/posts");
+const { routerError } = require("../service/error");
+const { validatePostData } = require("../middleware/validationPost");
 
 router.get("/:id", getAllPostsUser, (req, res) => {
   res.send(200);
@@ -15,9 +17,11 @@ router.post(
   }
 );
 
-router.post("/add", createPost, (req, res) => {
+router.post("/add", validatePostData, createPost, (req, res) => {
   res.send(200, { post_id: req.post.id });
 });
+
+router.use(routerError);
 
 module.exports = {
   router,

@@ -10,6 +10,7 @@ async function getAllUsers(req, res, next) {
     req.users = await User.find();
     next();
   } catch (err) {
+    req.status = 404
     next(err);
   }
 }
@@ -33,6 +34,7 @@ async function deleteUser(req, res, next) {
     await Comment.deleteMany({ user_id });
     next();
   } catch (err) {
+    req.status = 404
     next(err);
   }
 }
@@ -49,6 +51,7 @@ async function findUser(req, res, next) {
     res.cookie("token", token, { httpOnly: true });
     next();
   } catch (err) {
+    req.status = 404
     next(err);
   }
 }

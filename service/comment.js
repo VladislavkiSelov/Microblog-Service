@@ -24,6 +24,7 @@ async function createComment(req, res, next) {
     });
     next();
   } catch (err) {
+    req.status = 400
     next(err);
   }
 }
