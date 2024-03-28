@@ -1,27 +1,27 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String,
+  username: {type:String,required: true},
+  email: {type:String,required: true},
+  password: {type:String,required: true}
 });
 
 const adminSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String,
+  username: {type:String,required: true},
+  email: {type:String,required: true},
+  password: {type:String,required: true},
 });
 
 const postsSchema = new mongoose.Schema({
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-  titel: String,
-  description: String,
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users", require:true },
+  titel: {type:String,required: true},
+  description: {type:String,required: true},
 });
 
 const commentSchema = new mongoose.Schema({
-  post_id: { type: mongoose.Schema.Types.ObjectId, ref: "posts" },
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
-  comment: String,
+  post_id: { type: mongoose.Schema.Types.ObjectId, ref: "posts", require:true},
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users", require:true},
+  comment: {type:String,required: true},
 });
 
 const imageSchema = new mongoose.Schema({

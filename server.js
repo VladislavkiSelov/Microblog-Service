@@ -19,28 +19,6 @@ const express = require("express");
 const server = express();
 server.listen(3000, () => console.log(`server start port 3000`));
 
-// Настраиваю session
-// const session = require("express-session");
-// const MongoDBStore = require("connect-mongodb-session")(session);
-// const mongoUrl = `mongodb+srv://vladislav:JFRKH39KMLdhIvdN@microblog-service.h5anqze.mongodb.net/Microblog-Service?retryWrites=true&w=majority`;
-
-// const store = new MongoDBStore({
-//   uri: mongoUrl,
-//   collection: "sessions",
-// });
-
-// server.use(
-//   session({
-//     secret: "mySecret",
-//     resave: false,
-//     saveUninitialized: true,
-//     store: store,
-//     cookie: {
-//       maxAge: 1000 * 60 * 60 * 24, 
-//     },
-//   })
-// );
-
 //подключил pug
 server.use("/public", express.static("static"));
 server.set("view engine", "pug");
@@ -72,3 +50,5 @@ server.use("/logout", routeLogout);
 server.use("/my-posts", routeMyPosts);
 server.use("/add-posts", routeAddPost);
 server.use("/admin", routeAdmin);
+
+
