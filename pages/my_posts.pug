@@ -1,0 +1,13 @@
+extends head 
+block content
+    div.container
+        h2.titel-myPosts My posts
+        div.box-post
+            each item in posts
+                div.post
+                    a(href=`/post-user/${item._id}`)
+                        h3= item.titel
+                        h4= item.user_id.username
+                        button.read read
+                        form(action=`/posts/${item._id}/delete` method="post" id="deleteForm")
+                            button(class="delete" type="submit") delete

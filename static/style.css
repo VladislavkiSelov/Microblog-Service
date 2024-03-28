@@ -1,0 +1,422 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+html {
+  font-size: 10px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: #000;
+  background: #efefef;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.wrapper-header {
+  background-color: #fff;
+  margin-bottom: 4rem;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.navigation a {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+.navigation a:hover {
+  color: #007bfb;
+}
+
+.nav,
+.authentication {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.titel-myPosts {
+  font-size: 3.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.box-post {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.box-post div {
+  border-radius: 2rem;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid #cecece;
+  padding: 2.4rem;
+  position: relative;
+  transition: 0.3s;
+}
+
+.box-post .read:hover {
+  background-color: #3056d3;
+  color: #fff;
+}
+
+.box-post div h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.box-post div h4 {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  font-size: 1.2rem;
+  color: #007bfb;
+}
+
+.box-post div .read {
+  font-size: 1.6rem;
+  position: relative;
+  font-weight: 600;
+  color: #007bfb;
+  border-radius: 5rem;
+  padding: 1rem 3.5rem 1rem 1rem;
+  cursor: pointer;
+}
+
+.box-post div .read::after {
+  content: "→";
+  font-size: 1.6rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.delete {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 2;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fb0000;
+  border-radius: 5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.delete:hover {
+  background-color: #fb0000;
+  color: #fff;
+}
+
+/* ----------------------POST---------------------------------------------- */
+.post-user {
+  border-radius: 2rem;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid #cecece;
+  padding: 2.4rem;
+  margin-bottom: 10rem;
+}
+
+.box_img-post {
+  width: 70rem;
+  height: 50rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5rem;
+}
+
+.box_img-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.post-user > h2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.post-user > h3 {
+  font-size: 1.6rem;
+  line-height: 140%;
+  font-weight: 400;
+}
+
+.titel-comments {
+  margin-left: 2.4rem;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.box-commets {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 8rem;
+}
+
+.box-commets div {
+  background-color: #323d46;
+  border-radius: 2rem;
+  padding: 2.4rem;
+  padding-bottom: 4rem;
+  width: 100%;
+}
+
+.box-commets > p {
+  margin-left: 2.4rem;
+  font-size: 1.8rem;
+  line-height: 140%;
+  color: #000;
+}
+
+.comment {
+  position: relative;
+}
+.comment p {
+  font-size: 1.4rem;
+  line-height: 140%;
+}
+
+.comment h4 {
+  position: absolute;
+  font-size: 1.6rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  font-weight: 700;
+}
+
+#add-comment {
+  background-color: #a7eaff33;
+  border-radius: 2rem;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 3rem;
+}
+
+#add-comment input {
+  display: block;
+}
+
+#add-comment input:nth-child(1) {
+  text-align: top;
+  width: 100%;
+  height: 10rem;
+  padding: 1.5rem;
+  border-radius: 1.6rem;
+  border: 1px solid #cecece;
+  position: relative;
+}
+
+#add-comment input:nth-child(1)::placeholder {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+}
+
+.btn {
+  text-transform: uppercase;
+  background-color: #007bfb;
+  border: none;
+  border-radius: 5rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding: 1.2rem 2rem;
+  width: fit-content;
+}
+/*-------------------------Registration----------------------------------------------- */
+.box-registration {
+  display: flex;
+  justify-content: center;
+}
+
+#register {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 75rem;
+
+  background-color: #a7eaff33;
+  border-radius: 2rem;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  padding: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+#register input {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1.6rem;
+  border: 1px solid #cecece;
+  position: relative;
+}
+
+#register input:nth-child(1)::placeholder {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+}
+
+#register .btn {
+  text-align: center;
+}
+
+/* ---------------------------------LogIn--------------------------------- */
+.box-login {
+  display: flex;
+  justify-content: center;
+}
+
+#login {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 75rem;
+  background-color: #a7eaff33;
+  border-radius: 2rem;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  padding: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+#login input {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1.6rem;
+  border: 1px solid #cecece;
+  position: relative;
+}
+
+#login input:nth-child(1)::placeholder {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+}
+
+#login .btn {
+  text-align: center;
+}
+
+/* ----------------------------Add post---------------------------------------- */
+
+.box-add-post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+.box-add-post h2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+#add-post {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 75rem;
+  background-color: #a7eaff33;
+  border-radius: 2rem;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  padding: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+#add-post input {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1.6rem;
+  border: 1px solid #cecece;
+  position: relative;
+}
+
+#add-post input:nth-child(2) {
+  min-height: 20rem;
+}
+
+#add-post input:nth-child(2)::placeholder {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
+}
+
+#add-post .btn {
+  text-align: center;
+}
+
+/* -----------------------------------Admin------------------------------------------------------ */
+.table {
+  background-color: #fff;
+  border-radius: 2rem;
+  padding: 2.4rem;
+  width: 100%;
+}
+
+.list-users {
+  display: grid;
+}
+
+.user,
+.head-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 10rem;
+}
+
+.head-table > div {
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgb(33, 150, 84);
+}
+
+.head-table {
+  margin-bottom: 3rem;
+}
+
+.user > div {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.user .delete {
+  position: static;
+}
