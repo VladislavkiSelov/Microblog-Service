@@ -1,0 +1,22 @@
+div.wrapper-header
+    header.header.container
+        nav.navigation
+            ul.nav
+                if user.role == "admin"
+                    li 
+                        a(class='button' href='/admin') Home page  
+                else 
+                    li 
+                        a(class='button' href='/') Home page              
+                if user.role === "user"
+                    li
+                        a(class='button' href=`/my-posts/${user.id}`) My Posts
+                    li
+                        a(class='button' href=`/add-posts/`) Add post
+            ul.authentication
+                li
+                    a(class='button' href='/login') Login
+                li 
+                    a(class='button' href='/register') Register
+                li 
+                    a(class='button' href='/logout') Logout
