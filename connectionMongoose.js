@@ -1,3 +1,4 @@
+const { db } = require('config');
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -47,14 +48,14 @@ const Comment = mongoose.model("comments", commentSchema);
 const Admin = mongoose.model("admins", adminSchema);
 const Image = mongoose.model("images", imageSchema);
 
-const mongoUrl = `mongodb+srv://vladislav:${process.env.DB_PASS}@microblog-service.h5anqze.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-
+const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}?retryWrites=true&w=majority`;
 async function init() {
   try {
-    await mongoose.connect(mongoUrl, { dbName: "microblog" });
+    await mongoose.connect(mongoUrl, { dbName: db.name });
     console.log("mongo good");
   } catch (err) {
-    console.log(err);
+    console.warn("mongo bad!");
+    console.warn(err);
   }
 }
 

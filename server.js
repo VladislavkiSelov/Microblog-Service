@@ -1,4 +1,6 @@
-require('dotenv').config()
+require('dotenv').config();
+const config = require('config');
+
 const { router: routerUser } = require("./routes/routesUsers");
 const { router: routesPosts } = require("./routes/routesPosts");
 const { router: routesComment } = require("./routes/routesComment");
@@ -17,7 +19,10 @@ const { router: routeAdmin } = require("./routesPage/routeAdmin");
 //подключил сервер
 const express = require("express");
 const server = express();
-server.listen(3000, () => console.log(`server start port 3000`));
+
+//! краще мати можливість перевизначати порт динамічно, через енв
+const { port } = config.server;
+server.listen(port, () => console.log(`server start port ${port}`));
 
 //подключил pug
 server.use("/public", express.static("static"));
