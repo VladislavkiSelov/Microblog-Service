@@ -25,6 +25,8 @@ server.use(cookieParser());
 
 // api - тоді вже додамо api в роут, щоб чітко розрізняти що є сторінкою а що ні
 server.use("/api/auth", api.routerAuth);
+
+// TODO add /api/ and refactor internals
 server.use("/users", api.routerUser);
 server.use("/posts", api.routesPosts);
 server.use("/comments", api.routesComment);
