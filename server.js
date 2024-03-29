@@ -29,10 +29,6 @@ server.use("/public", express.static("static"));
 server.set("view engine", "pug");
 server.set("views", "pages");
 
-//подключил cors
-const cors = require("cors");
-server.use(cors({ origin: process.env.DB_HOST }));
-
 //подключил parser
 const jsonBodyParser = express.json();
 server.use(jsonBodyParser);
