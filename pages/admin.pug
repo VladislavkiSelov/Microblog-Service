@@ -1,11 +1,13 @@
-extends head 
+extends _layout
+block header
+    include header
 block content
     div.container
-        div.table 
+        div.table
             div.head-table
-                div ID 
-                div Email 
-                div Name 
+                div ID
+                div Email
+                div Name
                 div Action
             div.list-users
                 each item in users

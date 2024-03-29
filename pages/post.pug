@@ -1,11 +1,13 @@
-extends head 
+extends _layout
+block header
+    include header
 block content
     section.page_post.container
         div.post-user
             h2= post.titel
             div.box_img-post
                 img(src=`/public/${image}`)
-            h3= post.description 
+            h3= post.description
         h3.titel-comments Comments
         div.box-commets
             if comments.length>0
