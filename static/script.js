@@ -5,13 +5,15 @@ if (btnAddPost) {
   btnAddPost.addEventListener("click", async (e) => {
     e.preventDefault();
     const url = `/posts/add`;
-    // const url = `https://microblog-service-1.onrender.com`;
-    // const url = `http://localhost:3000/posts`;
 
     const body = {
       titel: formAddPost.titel.value,
       description: formAddPost.description.value,
     };
+
+    //! у тебе виходить що картинка обов'язковий елемент зараз
+    //! ок, але тоді навіщо розбивати створення поста і картінки на два різні запити? Збирай все в одну FormData,
+    //! і відправляй одним ріквестом, а вже на боці сервера обробляй куди пост нейм і тайтл, а куди картинку
 
     fetch(url, {
       method: "POST",
