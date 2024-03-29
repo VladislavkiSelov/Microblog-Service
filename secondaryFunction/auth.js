@@ -26,7 +26,7 @@ function verifyJwt(token) {
   try {
     data = jwt.verify(token, auth.secret);
   } catch (err) {
-    console.log(err);
+    console.log('jwt auth', err);
   }
 
   return data;
