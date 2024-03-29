@@ -296,6 +296,12 @@ html {
   text-align: center;
 }
 
+#register .error {
+  font-weight: bolder;
+  color: #b70303;
+  font-size: larger;
+}
+
 /* ---------------------------------LogIn--------------------------------- */
 .box-login {
   display: flex;
