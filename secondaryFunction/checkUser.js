@@ -1,3 +1,4 @@
+//! check user WHAT EXACTLY? checkIfLoggedIn, checkAuth, checkTokenExists
 function checkUser(req, res, next) {
   const { token } = req.cookies;
 
@@ -5,7 +6,7 @@ function checkUser(req, res, next) {
     res.redirect("/login");
     return
   }
-  
+
   next();
 }
 

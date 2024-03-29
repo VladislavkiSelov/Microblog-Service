@@ -1,15 +1,9 @@
 const router = require("express").Router();
-const { verifyJwt } = require("../secondaryFunction/auth");
 
+// не впевнений, нащо тобі токен і авторізація на сторінці Register
+// по хорошому, цю сторінку не має бачити зареєстрований юзер взагалі
 router.get("/", async (req, res) => {
-  try {
-    const { token } = req.cookies;
-    const user = verifyJwt(token);
-
-    res.render("register", { user });
-  } catch (err) {
-    next(err);
-  }
+  res.render("register");
 });
 
 module.exports = {
