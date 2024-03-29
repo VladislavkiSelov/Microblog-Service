@@ -1,21 +1,18 @@
 const btnAddPost = document.querySelector(".btnAddPost");
 const formAddPost = document.querySelector("#add-post");
 
-if(btnAddPost){
+if (btnAddPost) {
   btnAddPost.addEventListener("click", async (e) => {
     e.preventDefault();
-    const HOST = window.location.host
-    const url = `https://${HOST}/posts/add`;
-    // const url = `http://${HOST}/posts/add`;
-
+    const url = `/posts/add`;
     // const url = `https://microblog-service-1.onrender.com`;
     // const url = `http://localhost:3000/posts`;
-  
+
     const body = {
       titel: formAddPost.titel.value,
       description: formAddPost.description.value,
     };
-  
+
     fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
@@ -26,18 +23,17 @@ if(btnAddPost){
         const formData = new FormData();
         const fileInput = document.querySelector('input[name="file"]');
         formData.append("file", fileInput.files[0]);
-        const urlImage = `https://${HOST}/image/${data.post_id}`;
-        // const urlImage = `http://${HOST}/image/${data.post_id}`;
-  
+        const urlImage = `/image/${data.post_id}`;
+
         return fetch(urlImage, {
           method: "POST",
           body: formData,
         });
       })
+      .then((res) => res.json())
       .then((res) => {
-        console.log("good");
+        location.assign(res.url);
       })
       .catch((err) => console.error(err));
   });
 }
-

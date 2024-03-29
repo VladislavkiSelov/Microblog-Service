@@ -5,7 +5,7 @@ const { createImage } = require("../service/image");
 const { routerError } = require("../service/error");
 
 router.post("/:post_id", upload.single("file"), createImage, (req, res) => {
-  res.redirect("/");
+  res.send(200, {url:"/"});
 });
 
 router.use(routerError)
