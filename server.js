@@ -26,7 +26,7 @@ server.set("views", "pages");
 
 //подключил cors
 const cors = require("cors");
-server.use(cors({ origin: "http://localhost:3000" }));
+server.use(cors({ origin: process.env.DB_HOST }));
 
 //подключил parser
 const jsonBodyParser = express.json();
