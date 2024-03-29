@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
     const { token } = req.cookies;
     const user = verifyJwt(token);
 
-    res.render("login", { user});
+    res.render("login", { user });
   } catch (err) {
     next(err);
   }
