@@ -6,7 +6,7 @@ const { routerError } = require("../service/error");
 const { validateUserData } = require("../middleware/validationUser");
 
 router.post("/register", express.urlencoded({ extended: true }), validateUserData, createUser, (req,res) => {
-  res.redirect("/")
+  res.redirect("/login")
 });
 
 router.post("/login", express.urlencoded({ extended: true }), checkAdmin, findUser, (req,res) => {
