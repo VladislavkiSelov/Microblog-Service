@@ -5,8 +5,11 @@ if(btnAddPost){
   btnAddPost.addEventListener("click", async (e) => {
     e.preventDefault();
     const HOST = window.location.host
-    // const HOST = "microblog-service.h5anqze.mongodb.net"
-    const url = `http://${HOST}/posts/add`;
+    const url = `https://${HOST}/posts/add`;
+    // const url = `http://${HOST}/posts/add`;
+
+    // const url = `https://microblog-service-1.onrender.com`;
+    // const url = `http://localhost:3000/posts`;
   
     const body = {
       titel: formAddPost.titel.value,
@@ -23,7 +26,8 @@ if(btnAddPost){
         const formData = new FormData();
         const fileInput = document.querySelector('input[name="file"]');
         formData.append("file", fileInput.files[0]);
-        const urlImage = `http://${HOST}/image/${data.post_id}`;
+        const urlImage = `https://${HOST}/image/${data.post_id}`;
+        // const urlImage = `http://${HOST}/image/${data.post_id}`;
   
         return fetch(urlImage, {
           method: "POST",

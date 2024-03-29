@@ -1,4 +1,4 @@
-const { Post, Comment } = require("../connectionMongoose");
+const { Post, Comment,Image } = require("../connectionMongoose");
 const { ObjectId } = require("mongodb");
 const { verifyJwt } = require("../secondaryFunction/auth");
 
@@ -55,6 +55,7 @@ async function deletePost(req, res, next) {
   try {
     await Post.deleteOne({ _id: req.params.id });
     await Comment.deleteMany({ post_id: req.params.id });
+    await Image.deleteOne({ post_id: req.params.id });
     next();
   } catch (err) {
     next(err);
