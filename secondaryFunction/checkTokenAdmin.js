@@ -1,6 +1,6 @@
 const { verifyJwt } = require("./auth");
 
-function checkAdmin(req, res, next) {
+function checkTokenAdmin(req, res, next) {
   const { token } = req.cookies;
   const user = verifyJwt(token);
 
@@ -8,10 +8,10 @@ function checkAdmin(req, res, next) {
     res.redirect("/login");
     return;
   }
-  
+
   next();
 }
 
 module.exports = {
-  checkAdmin,
+  checkTokenAdmin,
 };

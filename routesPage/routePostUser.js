@@ -13,6 +13,7 @@ router.get("/:id", getPostFindId, getCommentsFindId, getImage,async (req, res) =
     const image = req.image;
     res.render("post", { post, comments, user ,image});
   } catch (err) {
+    req.error = `routePostUser  = ${err}`;
     next(err);
   }
 });

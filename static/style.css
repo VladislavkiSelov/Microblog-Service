@@ -261,6 +261,9 @@ html {
 .box-registration {
   display: flex;
   justify-content: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #register {
@@ -296,10 +299,19 @@ html {
   text-align: center;
 }
 
+#register .error {
+  font-weight: bolder;
+  color: #b70303;
+  font-size: larger;
+}
+
 /* ---------------------------------LogIn--------------------------------- */
 .box-login {
   display: flex;
   justify-content: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #login {

@@ -1,16 +1,14 @@
+const { MongoServerError } = require("mongodb");
 const { User, Post, Comment } = require("../connectionMongoose");
-const {
-  hashPassword,
-  checkPassword,
-  issueJwt,
-} = require("../secondaryFunction/auth");
+const { hashPassword, checkPassword } = require("../secondaryFunction/auth");
 
 async function getAllUsers(req, res, next) {
   try {
     req.users = await User.find();
     next();
   } catch (err) {
-    req.status = 404
+    req.status = 404;
+    req.error = `getAllUsers = ${err}`;
     next(err);
   }
 }
@@ -20,8 +18,13 @@ async function createUser(req, res, next) {
   const hash = await hashPassword(password);
   try {
     req.users = await User.create({ password: hash, email, username });
+    req._role = "user";
     next();
   } catch (err) {
+    if (err.code === 11000) {
+      return next("Email already registered");
+    }
+    req.error = `createUser = ${err}`;
     next(err);
   }
 }
@@ -34,7 +37,8 @@ async function deleteUser(req, res, next) {
     await Comment.deleteMany({ user_id });
     next();
   } catch (err) {
-    req.status = 404
+    req.error = `deleteUser = ${err}`;
+    req.status = 404;
     next(err);
   }
 }
@@ -47,11 +51,12 @@ async function findUser(req, res, next) {
     if (!passwordMatch) {
       res.status(401).send("Error password");
     }
-    const token = issueJwt({ id: user.id, role: 'user' });
-    res.cookie("token", token, { httpOnly: true });
+    req._role = "user";
+    req.user = user;
     next();
   } catch (err) {
-    req.status = 404
+    req.error = `findUser = ${err}`;
+    req.status = 404;
     next(err);
   }
 }

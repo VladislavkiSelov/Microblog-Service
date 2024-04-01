@@ -1,18 +1,9 @@
-const router = require("express").Router();
-const { verifyJwt } = require("../secondaryFunction/auth");
-const { checkUser } = require("../secondaryFunction/checkUser");
+const { checkTokenUser } = require("../secondaryFunction/checkTokenUser");
 const { getAllPostsUser } = require("../service/posts");
 
-router.get("/:id", checkUser, getAllPostsUser, async (req, res) => {
-  const posts = req.posts;
-  const { token } = req.cookies;
-  const user = verifyJwt(token);
-  
-  try {
-    res.render("my_posts", { posts ,user});
-  } catch (err) {
-    next(err);
-  }
+router.get("/:id", checkTokenUser, getAllPostsUser, async (req, res) => {
+  const { posts, user } = req;
+  res.render("my_posts", { posts, user });
 });
 
 module.exports = {

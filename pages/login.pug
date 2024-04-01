@@ -1,7 +1,7 @@
-extends head 
+extends _layout
 block content
     div.container.box-login
-        form#login(method="post" action="/auth/login")
+        form#login(method="post" action="/api/auth/login")
             input(type="email" placeholder="email" name="email")
             input(type="password" placeholder="password" name="password")
             input(class="btn" type="submit" value="login")

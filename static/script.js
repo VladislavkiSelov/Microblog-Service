@@ -4,9 +4,7 @@ const formAddPost = document.querySelector("#add-post");
 if (btnAddPost) {
   btnAddPost.addEventListener("click", async (e) => {
     e.preventDefault();
-    const url = `/posts/add`;
-    // const url = `https://microblog-service-1.onrender.com`;
-    // const url = `http://localhost:3000/posts`;
+    const url = `/api/posts/add`;
 
     const body = {
       titel: formAddPost.titel.value,
@@ -23,7 +21,11 @@ if (btnAddPost) {
         const formData = new FormData();
         const fileInput = document.querySelector('input[name="file"]');
         formData.append("file", fileInput.files[0]);
-        const urlImage = `/image/${data.post_id}`;
+        const urlImage = `/api/image/${data.post_id}`;
+
+        if (!fileInput.files[0]) {
+          return location.assign("/");
+        }
 
         return fetch(urlImage, {
           method: "POST",

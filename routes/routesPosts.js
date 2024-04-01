@@ -18,7 +18,7 @@ router.post(
 );
 
 router.post("/add", validatePostData, createPost, (req, res) => {
-  res.send(200, { post_id: req.post.id });
+  res.send({ post_id: req.post.id });
 });
 
 router.use(routerError);

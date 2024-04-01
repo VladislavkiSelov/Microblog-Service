@@ -12,6 +12,7 @@ async function validateUserData(req, res, next) {
     await userSchema.validate(req.body);
     next();
   } catch (err) {
+    req.error = `validateUserData = ${err}`
     req.status = 400;
     next(err);
   }

@@ -1,8 +1,9 @@
-extends head 
+extends _layout
 block content
     div.container.box-registration
-        form#register(method="post" action="/auth/register")
+        form#register(method="post" action="/api/auth/register")
             input(type="text" placeholder="name" name="username" )
             input(type="email" placeholder="email" name="email" required)
             input(type="password" placeholder="password" name="password" required)
+            .error= locals.error
             input(class="btn" type="submit"  value="registration")

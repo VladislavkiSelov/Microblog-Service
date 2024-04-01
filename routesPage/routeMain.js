@@ -10,6 +10,7 @@ router.get("/", getAllPosts, async (req, res) => {
 
     res.render("main", { posts, user });
   } catch (err) {
+    req.error = `routeMain  = ${err}`;
     next(err);
   }
 });

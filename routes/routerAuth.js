@@ -4,18 +4,31 @@ const { createUser, findUser} = require("../service/users");
 const { checkAdmin} = require("../service/admin");
 const { routerError } = require("../service/error");
 const { validateUserData } = require("../middleware/validationUser");
+const { assignToken } = require("../secondaryFunction/assignToken");
 
-router.post("/register", express.urlencoded({ extended: true }), validateUserData, createUser, (req,res) => {
-  res.redirect("/login")
+
+router.use(express.urlencoded({ extended: true }))
+
+router.post("/register", validateUserData, createUser, assignToken, (req, res) => {
+  res.redirect(`/my-posts/${req.user.id}`);
 });
 
-router.post("/login", express.urlencoded({ extended: true }), checkAdmin, findUser, (req,res) => {
-  res.redirect("/")
-});
+router.post('/login', checkAdmin, (req, res, next) => {
+  if (req._role) return next();
+  return findUser(req, res, next);
+  },
+  assignToken,
+  (req, res) => {
+    if(req._role === 'admin'){
+      res.redirect('/admin')
+    }else{
+      res.redirect('/');
+    }
+  });
 
-router.get("/logout", (req,res) => {
-  res.clearCookie('token')
-  res.redirect("/")
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.redirect('/');
 });
 
 router.use(routerError)

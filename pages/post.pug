@@ -1,10 +1,15 @@
-extends head 
+extends _layout
+block header
+    include header
 block content
     section.page_post.container
         div.post-user
             h2= post.titel
             div.box_img-post
-                img(src=`/public/${image}`)
+                if image
+                    img(src=`/public/${image}`)
+                else 
+                    img(src=`/public/uploads/no-image.png`)
             h3= post.description 
         h3.titel-comments Comments
         div.box-commets
@@ -15,7 +20,7 @@ block content
                         h4= item.user_id.username
             else
                 p No comments...
-            form#add-comment(method="post" action="/comments/add-comment")
+            form#add-comment(method="post" action="/api/comments/add-comment")
                 textarea(type="text", name="comment" placeholder='Add comment')
                 input(type="hidden" name="post_id" value=`${post.id}`)
                 input(type="submit",class="btn", value="send")

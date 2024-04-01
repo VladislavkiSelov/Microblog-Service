@@ -9,6 +9,7 @@ async function validateCommentData(req, res, next) {
     await commentSchema.validate(req.body);
     next();
   } catch (err) {
+    req.error = `validateCommentData = ${err}`
     req.status = 400;
     next(err);
   }

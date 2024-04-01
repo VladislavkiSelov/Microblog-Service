@@ -8,6 +8,7 @@ async function getCommentsFindId(req, res, next) {
     req.comments = comments;
     next();
   } catch (err) {
+    req.error = `getCommentsFindId = ${err}`
     next(err);
   }
 }
@@ -24,6 +25,7 @@ async function createComment(req, res, next) {
     });
     next();
   } catch (err) {
+    req.error = `createComment = ${err}`
     req.status = 400
     next(err);
   }

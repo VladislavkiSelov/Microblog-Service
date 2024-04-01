@@ -1,3 +1,4 @@
+const { auth } = require('config');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -11,10 +12,8 @@ async function checkPassword(password, userPassword) {
   return await bcrypt.compare(password, userPassword);
 }
 
-const secret = process.env.SECRET;
-
 function issueJwt(data) {
-  return jwt.sign(data, secret, { expiresIn: "2h" });
+  return jwt.sign(data, auth.secret, { expiresIn: "2h" });
 }
 
 function verifyJwt(token) {
@@ -23,9 +22,9 @@ function verifyJwt(token) {
   if (!token) {
     return data;
   }
-  
+
   try {
-    data = jwt.verify(token, secret);
+    data = jwt.verify(token, auth.secret);
   } catch (err) {
     console.log(err);
   }
