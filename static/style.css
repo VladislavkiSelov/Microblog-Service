@@ -128,6 +128,24 @@ html {
   color: #fff;
 }
 
+.btn_edit-post {
+  position: absolute;
+  right: 10rem;
+  bottom: 2rem;
+  z-index: 2;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #007bfb;
+  border-radius: 5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.btn_edit-post:hover {
+  background-color: #007bfb;
+  color: #fff;
+}
+
 /* ----------------------POST---------------------------------------------- */
 .post-user {
   border-radius: 2rem;
