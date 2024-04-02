@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const { randomUUID } = require("crypto");
 
 const uploadDirectory = path.join(process.cwd(), "static", "uploads");
 

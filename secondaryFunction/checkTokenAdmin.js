@@ -1,14 +1,11 @@
-const { verifyJwt } = require("./auth");
-
 function checkTokenAdmin(req, res, next) {
-  const { token } = req.cookies;
-  const user = verifyJwt(token);
+  const { user } = req;
 
   if (user.role !== "admin") {
     res.redirect("/login");
     return;
   }
-
+  
   next();
 }
 

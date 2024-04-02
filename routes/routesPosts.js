@@ -18,8 +18,8 @@ router.post(
 );
 
 router.post("/add", validatePostData, createPost, (req, res) => {
-  res.send({ post_id: req.post.id });
-});
+  res.send({ post_id: req.post.id })
+}, (err, req, res, next) => res.status(400).json({ error: err.message || err }));
 
 router.use(routerError);
 

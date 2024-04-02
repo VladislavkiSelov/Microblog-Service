@@ -17,10 +17,11 @@ async function createUser(req, res, next) {
   const { password, email, username } = req.body;
   const hash = await hashPassword(password);
   try {
-    req.users = await User.create({ password: hash, email, username });
+    req.user = await User.create({ password: hash, email, username });
     req._role = "user";
     next();
   } catch (err) {
+    req.errorRender = "register";
     if (err.code === 11000) {
       return next("Email already registered");
     }
@@ -55,9 +56,10 @@ async function findUser(req, res, next) {
     req.user = user;
     next();
   } catch (err) {
+    req.errorRender = "login";
     req.error = `findUser = ${err}`;
     req.status = 404;
-    next(err);
+    next("User is not found");
   }
 }
 

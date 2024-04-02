@@ -16,7 +16,12 @@ if (btnAddPost) {
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Ошибка при добавлении поста");
+        }
+        return res.json();
+      })
       .then((data) => {
         const formData = new FormData();
         const fileInput = document.querySelector('input[name="file"]');
@@ -36,6 +41,9 @@ if (btnAddPost) {
       .then((res) => {
         location.assign(res.url);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        document.querySelector(".error").textContent = err;
+        return;
+      });
   });
 }

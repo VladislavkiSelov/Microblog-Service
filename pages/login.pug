@@ -4,4 +4,5 @@ block content
         form#login(method="post" action="/api/auth/login")
             input(type="email" placeholder="email" name="email")
             input(type="password" placeholder="password" name="password")
+            .error= error
             input(class="btn" type="submit" value="login")

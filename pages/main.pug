@@ -4,9 +4,8 @@ block header
 block content       
     section.main.container
         div.box-post
-            each item in posts
-                a(href=`/post-user/${item._id}`)
-                    div.post
-                        h3= item.titel
-                        h4= item.user_id.username
-                        button.read read
+            each item in posts               
+                div.post
+                    h3= item.titel
+                    h4= item.user_id.username
+                    a(href=`/post-user/${item._id}` class="read") read

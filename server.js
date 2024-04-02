@@ -3,21 +3,6 @@ const config = require("config");
 const morgan = require("morgan");
 const colors = require("colors/safe");
 
-// const { router: routerUser } = require("./routes/routesUsers");
-// const { router: routesPosts } = require("./routes/routesPosts");
-// const { router: routesComment } = require("./routes/routesComment");
-// const { router: routerAuth } = require("./routes/routerAuth");
-// const { router: routesImage } = require("./routes/routesImage");
-
-// const { router: routeMain } = require("./routesPage/routeMain");
-// const { router: routePostUser } = require("./routesPage/routePostUser");
-// const { router: routeRegister } = require("./routesPage/routeRegister");
-// const { router: routeLogIn } = require("./routesPage/routeLogIn");
-// const { router: routeMyPosts } = require("./routesPage/routeMyPosts");
-// const { router: routeLogout } = require("./routesPage/routeLogout");
-// const { router: routeAddPost } = require("./routesPage/routeAddPost");
-// const { router: routeAdmin } = require("./routesPage/routeAdmin");
-
 const api = require("./routes");
 const pages = require("./routesPage");
 
@@ -51,12 +36,6 @@ server.use(
 );
 
 //api
-// server.use("/api/auth", api.routerAuth);
-// server.use("/users", api.routerUser);
-// server.use("/posts", api.routesPosts);
-// server.use("/comments", api.routesComment);
-// server.use("/image", api.routesImage);
-
 server.use("/api/auth", api.routerAuth);
 server.use("/api/users", api.routerUser);
 server.use("/api/posts", api.routesPosts);

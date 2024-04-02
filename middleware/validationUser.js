@@ -13,7 +13,7 @@ async function validateUserData(req, res, next) {
     next();
   } catch (err) {
     req.error = `validateUserData = ${err}`
-    req.status = 400;
+    req.errorRender = 'register';
     next(err);
   }
 }

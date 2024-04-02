@@ -1,8 +1,9 @@
 const { Admin } = require("../connectionMongoose");
-const { checkPassword, issueJwt } = require("../secondaryFunction/auth");
+const { checkPassword } = require("../secondaryFunction/auth");
 
 async function checkAdmin(req, res, next) {
   const { password, email } = req.body;
+
   try {
     const admin = await Admin.findOne({ email });
 
@@ -21,6 +22,7 @@ async function checkAdmin(req, res, next) {
     req.user = admin 
     next();
   } catch (err) {
+    req.errorRender = 'login';
     req.error = `checkAdmin = ${err}`
     next(err);
   }

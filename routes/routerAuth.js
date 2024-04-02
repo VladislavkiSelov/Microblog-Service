@@ -2,9 +2,9 @@ const express = require("express");
 const router = require("express").Router();
 const { createUser, findUser} = require("../service/users");
 const { checkAdmin} = require("../service/admin");
-const { routerError } = require("../service/error");
 const { validateUserData } = require("../middleware/validationUser");
 const { assignToken } = require("../secondaryFunction/assignToken");
+const { routerError } = require("../service/error");
 
 
 router.use(express.urlencoded({ extended: true }))

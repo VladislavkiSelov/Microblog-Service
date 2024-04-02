@@ -81,6 +81,7 @@ html {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  margin-left: 1rem;
 }
 
 .box-post div h4 {
@@ -257,6 +258,25 @@ html {
   padding: 1.2rem 2rem;
   width: fit-content;
 }
+
+#delete-comment {
+  position: absolute;
+  left: 2rem;
+  bottom: 1rem;
+}
+
+.btn-delete {
+  font-size: 1.4rem;
+  background: inherit;
+  border: 0;
+  color: #999999;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  color: #fff;
+}
+
 /*-------------------------Registration----------------------------------------------- */
 .box-registration {
   display: flex;
@@ -299,7 +319,7 @@ html {
   text-align: center;
 }
 
-#register .error {
+.error {
   font-weight: bolder;
   color: #b70303;
   font-size: larger;
@@ -354,6 +374,7 @@ html {
   justify-content: center;
   align-items: center;
   gap: 5rem;
+  padding-top: 10rem;
 }
 
 .box-add-post h2 {
@@ -375,7 +396,8 @@ html {
   margin-bottom: 3rem;
 }
 
-#add-post input,textarea {
+#add-post input,
+textarea {
   width: 100%;
   padding: 1.5rem;
   border-radius: 1.6rem;

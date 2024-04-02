@@ -2,8 +2,8 @@ const yup = require("yup");
 
 async function validatePostData(req, res, next) {
   const postSchema = yup.object({
-    titel: yup.string().required().min(1),
-    description: yup.string().required().min(3),
+    titel: yup.string().required().min(3),
+    description: yup.string().required().min(10),
   });
 
   try {
