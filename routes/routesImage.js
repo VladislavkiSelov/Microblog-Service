@@ -9,7 +9,7 @@ router.post("/:post_id", upload.single("file"), createImage, (req, res) => {
 });
 
 router.post("/:post_id/edit", deleteImage, upload.single("file"), editImage, (req, res) => {
-  res.send(200, { url: "/" });
+  res.send(200, {url:"/"});
 });
 
 router.use(routerError)

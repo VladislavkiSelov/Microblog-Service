@@ -15,7 +15,7 @@ router.post(
 );
 
 router.post("/edit", validatePostData, editPost, (req, res) => {
-  res.send(200, { post_id: req.body.post_id });
+  res.send(200, { post_id: req.body.post_id }),(err, req, res, next) => res.status(400).json({ error: err.message || err });
 });
 
 router.post("/add", validatePostData, createPost, (req, res) => {

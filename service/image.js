@@ -27,33 +27,43 @@ async function editImage(req, res, next) {
   const imagePath = path.join("uploads", req.file.filename).replace(/\\/g, "/");
 
   try {
-    await Image.updateOne(
-      { post_id: new ObjectId(req.params.post_id) },
-      { $set: { image: imagePath } }
-    );
-    next();
+    if (!req.findImageDB) {
+      await Image.create({ image: imagePath, post_id: req.params.post_id });
+      next();
+    } else {
+      await Image.updateOne(
+        { post_id: new ObjectId(req.params.post_id) },
+        { $set: { image: imagePath } }
+      );
+      next();
+    }
   } catch (err) {
+    req.error = `editImage = ${err}`;
     res.status(500).send(err);
   }
 }
 
 async function deleteImage(req, res, next) {
   try {
-    const { image } = await Image.findOne({
+    const resFindImage = await Image.findOne({
       post_id: new ObjectId(req.params.post_id),
     });
 
-    const filePath = path
-      .join(process.cwd(), "static", image)
-      .replace(/\\/g, "/");
+    if (!resFindImage) {
+      req.findImageDB = false;
+      next();
+    } else {
+      const filePath = path
+        .join(process.cwd(), "static", resFindImage.image)
+        .replace(/\\/g, "/");
 
-    await fs.unlink(filePath, (err) => {
-      if (err) {
-        next(err);
-      }
-    });
-
-    next();
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          next(err);
+        }
+      });
+      next();
+    }
   } catch (err) {
     req.error = `deleteImage = ${err}`;
     next(err);
