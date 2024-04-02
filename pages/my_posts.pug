@@ -1,4 +1,6 @@
-extends head 
+extends _layout
+block header
+    include header
 block content
     div.container
         h2.titel-myPosts My posts
@@ -7,7 +9,7 @@ block content
                 div.post
                     a(href=`/post-user/${item._id}`)
                         h3= item.titel
-                        h4= item.user_id.username
                         button.read read
-                        form(action=`/posts/${item._id}/delete` method="post" id="deleteForm")
+                        form(action=`/api/posts/${item._id}/delete` method="post" id="deleteForm")
                             button(class="delete" type="submit") delete
+                        a(href=`/post-edit/${item._id}` class="btn_edit-post") edit

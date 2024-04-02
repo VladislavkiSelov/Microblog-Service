@@ -1,4 +1,6 @@
-extends head 
+extends _layout
+block header
+    include header
 block content
     div.container
         div.table 
@@ -14,6 +16,6 @@ block content
                         div.email= item.email
                         div.name= item.username
                         div.box-btn
-                            form(action=`/users/delete` method="post")
+                            form(action=`/api/users/delete` method="post")
                                 input(type="hidden" name="user_id" value=`${item._id}`)
                                 button(class="delete" type="submit") delete

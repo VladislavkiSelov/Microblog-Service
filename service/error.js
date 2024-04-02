@@ -1,7 +1,7 @@
 function routerError(err, req, res, next) {
-    res.status(req.status || 400).send({ error: err.message });
-  }
+  res.render(req.errorRender, { error: err.message || err });
+}
 
 module.exports = {
-    routerError
+  routerError,
 };

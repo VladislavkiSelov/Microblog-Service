@@ -1,10 +1,15 @@
-extends head 
+extends _layout
+block header
+    include header
 block content
     section.page_post.container
         div.post-user
             h2= post.titel
             div.box_img-post
-                img(src=`/public/${image}`)
+                if image
+                    img(src=`/public/${image}`)
+                else 
+                    img(src=`/public/uploads/no-image.png`)
             h3= post.description 
         h3.titel-comments Comments
         div.box-commets
@@ -13,9 +18,14 @@ block content
                     div.comment
                         p= item.comment
                         h4= item.user_id.username
+                        if user.id === item.user_id.id
+                            form#delete-comment(method="post" action="/api/comments/delete-comment")
+                                input(type="hidden" name="comment" value=`${item.id}`)
+                                input(type="hidden" name="post_id" value=`${post.id}`)
+                                input(type="submit",class="btn-delete", value="delete")
             else
                 p No comments...
-            form#add-comment(method="post" action="/comments/add-comment")
-                textarea(type="text", name="comment" placeholder='Add comment')
+            form#add-comment(method="post" action="/api/comments/add-comment")
+                textarea(type="text", name="comment" placeholder='Add comment' required)
                 input(type="hidden" name="post_id" value=`${post.id}`)
                 input(type="submit",class="btn", value="send")

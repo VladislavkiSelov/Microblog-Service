@@ -1,0 +1,11 @@
+extends _layout 
+block content
+    div.container.box-add-post
+        h2 Edit post
+        form#edit-post
+            input(type="text", name="titel" placeholder='titel' value=`${post.titel}` required)
+            input(type="hidden", name="post_id" value=`${post._id}`)
+            textarea(type="text", name="description" placeholder='description' required)= post.description
+            input(type="file", name="file")
+            .error= error
+            input(type="submit",class="btn btnEditPost", value="send")

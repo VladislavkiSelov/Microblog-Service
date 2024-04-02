@@ -81,6 +81,7 @@ html {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  margin-left: 1rem;
 }
 
 .box-post div h4 {
@@ -124,6 +125,24 @@ html {
 
 .delete:hover {
   background-color: #fb0000;
+  color: #fff;
+}
+
+.btn_edit-post {
+  position: absolute;
+  right: 10rem;
+  bottom: 2rem;
+  z-index: 2;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #007bfb;
+  border-radius: 5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.btn_edit-post:hover {
+  background-color: #007bfb;
   color: #fff;
 }
 
@@ -257,10 +276,32 @@ html {
   padding: 1.2rem 2rem;
   width: fit-content;
 }
+
+#delete-comment {
+  position: absolute;
+  left: 2rem;
+  bottom: 1rem;
+}
+
+.btn-delete {
+  font-size: 1.4rem;
+  background: inherit;
+  border: 0;
+  color: #999999;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  color: #fff;
+}
+
 /*-------------------------Registration----------------------------------------------- */
 .box-registration {
   display: flex;
   justify-content: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #register {
@@ -296,10 +337,19 @@ html {
   text-align: center;
 }
 
+.error {
+  font-weight: bolder;
+  color: #b70303;
+  font-size: larger;
+}
+
 /* ---------------------------------LogIn--------------------------------- */
 .box-login {
   display: flex;
   justify-content: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #login {
@@ -342,6 +392,7 @@ html {
   justify-content: center;
   align-items: center;
   gap: 5rem;
+  padding-top: 10rem;
 }
 
 .box-add-post h2 {
@@ -349,7 +400,8 @@ html {
   font-weight: 700;
 }
 
-#add-post {
+
+#add-post,#edit-post {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -383,6 +435,24 @@ html {
 
 #add-post .btn {
   text-align: center;
+}
+
+#edit-post input,textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1.6rem;
+  border: 1px solid #cecece;
+  position: relative;
+}
+
+#edit-post textarea {
+  min-height: 20rem;
+}
+
+#edit-post textarea::placeholder {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
 }
 
 /* -----------------------------------Admin------------------------------------------------------ */

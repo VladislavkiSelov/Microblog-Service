@@ -1,1 +1,15 @@
-process.env.DB_HOST = process.env.NODE_ENV === "production" ? 'microblog-service.h5anqze.mongodb.net' : 'http://localhost:3000'
+module.exports = {
+    server: {
+      port: process.env.PORT
+    },
+    db: {
+      user: process.env.DB_USER,
+      pass: process.env.DB_PASS,
+      name: process.env.DB_NAME,
+      host: process.env.DB_HOST,
+      connectionFormat: process.env.NODE_ENV === 'production' ? '+srv' : ''
+    },
+    auth: {
+      secret: process.env.JWT_SECRET || 'some-default-secret-string'
+    }
+  }

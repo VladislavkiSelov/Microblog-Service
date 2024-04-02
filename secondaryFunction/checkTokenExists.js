@@ -1,17 +1,18 @@
 const { verifyJwt } = require("./auth");
 
-function checkAdmin(req, res, next) {
+function checkTokenExists(req, res, next) {
   const { token } = req.cookies;
   const user = verifyJwt(token);
 
-  if (user.role !== "admin") {
-    res.redirect("/login");
-    return;
+  if (!user) {
+    req.user = {};
+    next()
   }
   
+  req.user = user;
   next();
 }
 
 module.exports = {
-  checkAdmin,
+  checkTokenExists,
 };

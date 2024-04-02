@@ -1,19 +1,12 @@
-const { verifyJwt } = require("../secondaryFunction/auth");
-const {checkAdmin} = require("../secondaryFunction/checkAdmin");
+const { checkTokenAdmin } = require("../secondaryFunction/checkTokenAdmin");
+const { checkTokenExists } = require("../secondaryFunction/checkTokenExists");
 const { getAllUsers } = require("../service/users");
 
 const router = require("express").Router();
 
-router.get("/", checkAdmin,  getAllUsers, async (req, res) => {
-  const { token } = req.cookies;
-  const user = verifyJwt(token);
-  const users = req.users;
-
-  try {
-    res.render("admin", { users, user});
-  } catch (err) {
-    next(err);
-  }
+router.get("/", checkTokenExists, checkTokenAdmin, getAllUsers, async (req, res) => {
+  const { user, users } = req;
+  res.render("admin", { users, user });
 });
 
 module.exports = {

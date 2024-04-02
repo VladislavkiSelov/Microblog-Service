@@ -8,6 +8,7 @@ async function getAllPosts(req, res, next) {
 
     next();
   } catch (err) {
+    req.error = `getAllPosts = ${err}`
     req.status = 404
     next(err);
   }
@@ -21,6 +22,7 @@ async function getAllPostsUser(req, res, next) {
     req.posts = posts;
     next();
   } catch (err) {
+    req.error = `getAllPostsUser = ${err}`
     req.status = 404
     next(err);
   }
@@ -31,6 +33,7 @@ async function getPostFindId(req, res, next) {
     req.post = await Post.findById(req.params.id).populate("user_id");
     next();
   } catch (err) {
+    req.error = `getPostFindId = ${err}`
     req.status = 404
     next(err);
   }
@@ -46,6 +49,7 @@ async function createPost(req, res, next) {
    req.post = post;
    next();
   } catch (err) {
+    req.error = `createPost = ${err}`
     req.status = 400
     next(err);
   }
@@ -58,6 +62,35 @@ async function deletePost(req, res, next) {
     await Image.deleteOne({ post_id: req.params.id });
     next();
   } catch (err) {
+    req.error = `deletePost = ${err}`
+    next(err);
+  }
+}
+
+async function editPost(req, res, next) {
+  const { titel, description, post_id } = req.body;
+
+  try {
+    await Post.updateMany(
+      { _id: new ObjectId(post_id) },
+      { $set: { titel, description } }
+    );
+    next();
+  } catch (err) {
+    req.status = 400;
+    next(err);
+  }
+}async function editPost(req, res, next) {
+  const { titel, description, post_id } = req.body;
+
+  try {
+    await Post.updateMany(
+      { _id: new ObjectId(post_id) },
+      { $set: { titel, description } }
+    );
+    next();
+  } catch (err) {
+    req.status = 400;
     next(err);
   }
 }
@@ -68,4 +101,5 @@ module.exports = {
   getPostFindId,
   getAllPostsUser,
   deletePost,
+  editPost,
 };
