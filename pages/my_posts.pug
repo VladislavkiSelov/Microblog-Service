@@ -12,3 +12,4 @@ block content
                         button.read read
                         form(action=`/api/posts/${item._id}/delete` method="post" id="deleteForm")
                             button(class="delete" type="submit") delete
+                        a(href=`/post-edit/${item._id}` class="btn_edit-post") edit

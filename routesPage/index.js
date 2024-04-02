@@ -5,6 +5,7 @@ const { router: routeLogIn } = require("./routeLogIn");
 const { router: routeMyPosts } = require("./routeMyPosts");
 const { router: routeLogout } = require("./routeLogout");
 const { router: routeAddPost } = require("./routeAddPost");
+const { router: routeEditPost } = require("./routeEditPost");
 const { router: routeAdmin } = require("./routeAdmin");
 
 module.exports = {
@@ -15,5 +16,6 @@ module.exports = {
   routeLogout,
   routeMyPosts,
   routeAddPost,
-  routeAdmin
+  routeAdmin,
+  routeEditPost
 }

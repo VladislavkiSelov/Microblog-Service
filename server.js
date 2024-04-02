@@ -50,4 +50,5 @@ server.use("/login", pages.routeLogIn);
 server.use("/logout", pages.routeLogout);
 server.use("/my-posts", pages.routeMyPosts);
 server.use("/add-posts", pages.routeAddPost);
+server.use("/post-edit", pages.routeEditPost);
 server.use("/admin", pages.routeAdmin);

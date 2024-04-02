@@ -400,7 +400,8 @@ html {
   font-weight: 700;
 }
 
-#add-post {
+
+#add-post,#edit-post {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -414,8 +415,7 @@ html {
   margin-bottom: 3rem;
 }
 
-#add-post input,
-textarea {
+#add-post input,textarea {
   width: 100%;
   padding: 1.5rem;
   border-radius: 1.6rem;
@@ -435,6 +435,24 @@ textarea {
 
 #add-post .btn {
   text-align: center;
+}
+
+#edit-post input,textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 1.6rem;
+  border: 1px solid #cecece;
+  position: relative;
+}
+
+#edit-post textarea {
+  min-height: 20rem;
+}
+
+#edit-post textarea::placeholder {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.5rem;
 }
 
 /* -----------------------------------Admin------------------------------------------------------ */

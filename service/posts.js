@@ -67,10 +67,39 @@ async function deletePost(req, res, next) {
   }
 }
 
+async function editPost(req, res, next) {
+  const { titel, description, post_id } = req.body;
+
+  try {
+    await Post.updateMany(
+      { _id: new ObjectId(post_id) },
+      { $set: { titel, description } }
+    );
+    next();
+  } catch (err) {
+    req.status = 400;
+    next(err);
+  }
+}async function editPost(req, res, next) {
+  const { titel, description, post_id } = req.body;
+
+  try {
+    await Post.updateMany(
+      { _id: new ObjectId(post_id) },
+      { $set: { titel, description } }
+    );
+    next();
+  } catch (err) {
+    req.status = 400;
+    next(err);
+  }
+}
+
 module.exports = {
   getAllPosts,
   createPost,
   getPostFindId,
   getAllPostsUser,
   deletePost,
+  editPost,
 };
