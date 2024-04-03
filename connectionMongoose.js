@@ -1,5 +1,6 @@
-const { db } = require('config');
+const { db } = require("config");
 const mongoose = require("mongoose");
+let Grid = require("gridfs-stream");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -37,35 +38,30 @@ const commentSchema = new mongoose.Schema({
   comment: { type: String, required: true },
 });
 
-const imageSchema = new mongoose.Schema({
-  post_id: { type: mongoose.Schema.Types.ObjectId, ref: "posts" },
-  image: String,
-});
-
 const User = mongoose.model("users", userSchema);
 const Post = mongoose.model("posts", postsSchema);
 const Comment = mongoose.model("comments", commentSchema);
 const Admin = mongoose.model("admins", adminSchema);
-const Image = mongoose.model("images", imageSchema);
 
 const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
 
-async function init() {
-  try {
-    await mongoose.connect(mongoUrl, { dbName: db.name });
-    console.log("mongo good");
-  } catch (err) {
-    console.warn("mongo bad!");
-    console.warn(err);
-  }
-}
 
-init();
+mongoose.connect(mongoUrl, { dbName: db.name });
+const conn = mongoose.connection;
+
+// Инициализация GridFS-Storage
+let gfs;
+conn.once('open', () => {
+  // Инициализация потока GridFS
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('uploads');
+});
 
 module.exports = {
   User,
   Post,
   Comment,
   Admin,
-  Image,
+  gfs,
+  mongoUrl,
 };

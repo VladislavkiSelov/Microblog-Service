@@ -1,21 +1,35 @@
-const { Image } = require("../connectionMongoose");
+const { gfs } = require("../connectionMongoose");
 const { ObjectId } = require("mongodb");
 const path = require("path");
 const fs = require("fs");
+const { createReadStream } = require("fs");
 
 async function createImage(req, res, next) {
-  if (!req.file) {
-    return res.status(400).send("Нет загруженного файла.");
-  }
-
-  const imagePath = path.join("uploads", req.file.filename).replace(/\\/g, "/");
-
   try {
-    await Image.create({ image: imagePath, post_id: req.params.post_id });
-    next();
+    if (!req.file) {
+      return res.status(400).send("Нет загруженного файла.");
+    }
+    
+    const imagePath = path.join(process.cwd(), "static", "uploads", req.file.filename).replace(/\\/g, "/");
+    const filename = req.file.filename;
+
+    console.log('gfs:', gfs);
+    const writestream = gfs.createWriteStream({ filename });
+    const readStream = fs.createReadStream(imagePath);
+    
+    readStream.pipe(writestream);
+
+    writestream.on('error', err => {
+      next(err);
+    });
+
+    writestream.on('close', file => {
+      next();
+    });
+
   } catch (err) {
     req.error = `createImage = ${err}`;
-    res.status(500).send(err);
+    throw new Error("Failed to upload image");
   }
 }
 

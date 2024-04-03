@@ -4,7 +4,7 @@ const { upload } = require("../service/upload");
 const { createImage, editImage, deleteImage } = require("../service/image");
 const { routerError } = require("../service/error");
 
-router.post("/:post_id", upload.single("file"), createImage, (req, res) => {
+router.post("/:post_id", upload.single("file"), (req, res) => {
   res.send(200, {url:"/"});
 });
 

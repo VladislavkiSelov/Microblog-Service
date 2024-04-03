@@ -1,27 +1,33 @@
-const path = require("path");
-const fs = require("fs");
 const multer = require("multer");
-const { randomUUID } = require("crypto");
+const { mongoUrl } = require("../connectionMongoose");
+const {GridFsStorage} = require('multer-gridfs-storage');
+const crypto = require('crypto');
+const path = require('path');
 
-const uploadDirectory = path.join(process.cwd(), "static", "uploads");
 
-if (!fs.existsSync(uploadDirectory)) {
-  fs.mkdirSync(uploadDirectory);
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDirectory);
-  },
-
-  filename: (req, file, cb) => {
-    const extension = file.originalname.split(".").pop();
-    const randomSecureName = randomUUID();
-    cb(null, `${randomSecureName}.${extension}`);
-  },
+const storage = new GridFsStorage({
+  url: mongoUrl,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: 'uploads',
+          metadata: { 
+            post_id: req.params.post_id 
+          },
+        };
+        resolve(fileInfo);
+      });
+    });
+  }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 module.exports = {
   upload,
