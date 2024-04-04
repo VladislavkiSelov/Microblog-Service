@@ -45,16 +45,15 @@ const Admin = mongoose.model("admins", adminSchema);
 
 const mongoUrl = `mongodb${db.connectionFormat}://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
 
-
 mongoose.connect(mongoUrl, { dbName: db.name });
 const conn = mongoose.connection;
 
 // Инициализация GridFS-Storage
 let gfs;
-conn.once('open', () => {
+conn.once("open", () => {
   // Инициализация потока GridFS
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('uploads');
+  gfs.collection("uploads");
 });
 
 module.exports = {
