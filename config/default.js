@@ -7,7 +7,7 @@ module.exports = {
     pass: process.env.DB_PASS,
     name: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    connectionFormat: process.env.NODE_ENV === "develop" ? "+srv" : "",
+    connectionFormat: process.env.NODE_ENV === "production" ? "+srv" : "",
   },
   aws: {
     id: process.env.AWS_ID,

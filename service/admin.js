@@ -15,8 +15,7 @@ async function checkAdmin(req, res, next) {
 
     const passwordMatch = await checkPassword(password, admin.password);
     if (!passwordMatch) {
-      req.error = `Error password`
-      res.status(401).send('Error password');
+      throw new Error("Error password")
     }
 
     req._role = 'admin';
