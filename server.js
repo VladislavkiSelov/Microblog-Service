@@ -1,7 +1,6 @@
 require("dotenv").config();
 const config = require("config");
 const morgan = require("morgan");
-const colors = require("colors/safe");
 
 const api = require("./routes");
 const pages = require("./routesPage");
@@ -27,13 +26,7 @@ server.use(cookieParser());
 morgan.token("errorMessage", function (req, res) {
   return req.error || "";
 });
-server.use(
-  morgan(
-    `:method ${colors.bgGreen(`:url`)} ${colors.bgYellow(
-      `:status`
-    )} ${colors.bgRed(`:errorMessage`)}`
-  )
-);
+server.use(morgan(`:method :url :status :errorMessage`));
 
 //api
 server.use("/api/auth", api.routerAuth);

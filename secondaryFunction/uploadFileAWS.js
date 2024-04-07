@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { aws } = require("../config/default");
 const { s3 } = require("../connectionAWS");
+const logger = require("../utils/logger");
 
 function uploadFileAWS(filePath, filename) {
   const fileContent = fs.readFileSync(filePath);
@@ -13,7 +14,7 @@ function uploadFileAWS(filePath, filename) {
 
   s3.upload(params, function (err, data) {
     if (err) {
-      console.log(`Error aws`);
+      logger("uploadFileAWS").error(err);
       throw err;
     }
   });

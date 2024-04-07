@@ -1,5 +1,6 @@
 const { aws } = require("../config/default");
 const { s3 } = require("../connectionAWS");
+const logger = require("../utils/logger");
 
 async function getFileAWS(filename) {
   const params = {
@@ -21,7 +22,7 @@ async function getFileAWS(filename) {
 
     return url;
   } catch (error) {
-    console.error("Error getting object from S3:", error);
+    logger("getFileAWS").error(err);
     throw error;
   }
 }

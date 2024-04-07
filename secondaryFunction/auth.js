@@ -1,6 +1,7 @@
 const { auth } = require('config');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const logger = require("../utils/logger");
 
 async function hashPassword(plainTextPass) {
   const salt = await bcrypt.genSalt(10);
@@ -26,7 +27,7 @@ function verifyJwt(token) {
   try {
     data = jwt.verify(token, auth.secret);
   } catch (err) {
-    console.log(err);
+    logger("verifyJwt").error(err);
   }
 
   return data;

@@ -5,6 +5,7 @@ const fs = require("fs");
 const { uploadFileAWS } = require("../secondaryFunction/uploadFileAWS");
 const { getFileAWS } = require("../secondaryFunction/getFileAWS");
 const { deleteFileAWS } = require("../secondaryFunction/deleteFileAWS");
+const logger = require("../utils/logger");
 
 async function createImage(req, res, next) {
   if (!req.file) {
@@ -24,7 +25,7 @@ async function createImage(req, res, next) {
     req.imagePath = imagePath;
     next();
   } catch (err) {
-    req.error = `createImage = ${err}`;
+    logger("createImage").error(err);
     res.status(500).send(err);
   }
 }
@@ -50,27 +51,28 @@ async function editImage(req, res, next) {
     req.imagePath = imagePath;
     next();
   } catch (err) {
-    req.error = `editImage = ${err}`;
+    logger("editImage").error(err);
     res.status(500).send(err);
   }
 }
 
 async function deleteImage(req, res, next) {
   try {
-    const { filename } = await Image.findOne({
+    const  image  = await Image.findOne({
       post_id: new ObjectId(req.params.post_id),
     });
 
-    if (!filename) {
+    if (!image) {
       req.filename = false;
       next();
       return;
     }
-    deleteFileAWS(filename);
+
+    deleteFileAWS(image.filename);
     await Image.deleteOne({ post_id: req.params.post_id });
     next();
   } catch (err) {
-    req.error = `deleteImage = ${err}`;
+    logger("deleteImage").error(err);
     next(err);
   }
 }
@@ -84,7 +86,7 @@ async function getImage(req, res, next) {
     req.image = image;
     next();
   } catch (err) {
-    req.error = `getImage = ${err}`;
+    logger("getImage").error(err);
     next();
   }
 }
@@ -99,7 +101,7 @@ async function deleteImageMemory(req, res, next) {
     });
     next();
   } catch (err) {
-    req.error = `deleteImageMemory = ${err}`;
+    logger("deleteImageMemory").error(err);
     next();
   }
 }

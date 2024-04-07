@@ -1,5 +1,6 @@
 const { Comment } = require("../connectionMongoose");
 const { ObjectId } = require("mongodb");
+const logger = require("../utils/logger");
 
 async function getCommentsFindId(req, res, next) {
   try {
@@ -9,7 +10,7 @@ async function getCommentsFindId(req, res, next) {
     req.comments = comments;
     next();
   } catch (err) {
-    req.error = `getCommentsFindId = ${err}`;
+    logger("getCommentsFindId").error(err);
     next(err);
   }
 }
@@ -21,7 +22,7 @@ async function createComment(req, res, next) {
     await Comment.create({comment, user_id, post_id});
     next();
   } catch (err) {
-    req.error = `createComment = ${err}`;
+    logger("createComment").error(err);
     req.status = 400;
     next(err);
   }
@@ -32,7 +33,7 @@ async function deleteComment(req, res, next) {
     await Comment.deleteOne({ _id: req.body.comment });
     next();
   } catch (err) {
-    req.error = `createComment = ${err}`;
+    logger("deleteComment").error(err);
     next(err);
   }
 }

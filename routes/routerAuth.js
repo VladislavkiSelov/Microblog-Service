@@ -6,7 +6,6 @@ const { validateUserData } = require("../middleware/validationUser");
 const { assignToken } = require("../secondaryFunction/assignToken");
 const { routerError } = require("../service/error");
 
-
 router.use(express.urlencoded({ extended: true }))
 
 router.post("/register", validateUserData, createUser, assignToken, (req, res) => {
@@ -17,7 +16,9 @@ router.post('/login', checkAdmin, (req, res, next) => {
   if (req._role) return next();
   return findUser(req, res, next);
   },
+
   assignToken,
+  
   (req, res) => {
     if(req._role === 'admin'){
       res.redirect('/admin')

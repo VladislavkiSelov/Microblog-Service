@@ -1,5 +1,6 @@
 const { Admin } = require("../connectionMongoose");
 const { checkPassword } = require("../secondaryFunction/auth");
+const logger = require("../utils/logger");
 
 async function checkAdmin(req, res, next) {
   const { password, email } = req.body;
@@ -23,7 +24,7 @@ async function checkAdmin(req, res, next) {
     next();
   } catch (err) {
     req.errorRender = 'login';
-    req.error = `checkAdmin = ${err}`
+    logger("checkAdmin").error(err);
     next(err);
   }
 }

@@ -1,6 +1,7 @@
-const { Post, Comment,Image } = require("../connectionMongoose");
+const { Post, Comment, Image } = require("../connectionMongoose");
 const { ObjectId } = require("mongodb");
 const { verifyJwt } = require("../secondaryFunction/auth");
+const logger = require("../utils/logger");
 
 async function getAllPosts(req, res, next) {
   try {
@@ -8,8 +9,8 @@ async function getAllPosts(req, res, next) {
 
     next();
   } catch (err) {
-    req.error = `getAllPosts = ${err}`
-    req.status = 404
+    logger("getAllPosts").error(err);
+    req.status = 404;
     next(err);
   }
 }
@@ -22,8 +23,8 @@ async function getAllPostsUser(req, res, next) {
     req.posts = posts;
     next();
   } catch (err) {
-    req.error = `getAllPostsUser = ${err}`
-    req.status = 404
+    logger("getAllPostsUser").error(err);
+    req.status = 404;
     next(err);
   }
 }
@@ -33,8 +34,8 @@ async function getPostFindId(req, res, next) {
     req.post = await Post.findById(req.params.id).populate("user_id");
     next();
   } catch (err) {
-    req.error = `getPostFindId = ${err}`
-    req.status = 404
+    logger("getPostFindId").error(err);
+    req.status = 404;
     next(err);
   }
 }
@@ -45,12 +46,12 @@ async function createPost(req, res, next) {
   const { titel, description } = req.body;
 
   try {
-   const post = await Post.create({ user_id, titel, description });
-   req.post = post;
-   next();
+    const post = await Post.create({ user_id, titel, description });
+    req.post = post;
+    next();
   } catch (err) {
-    req.error = `createPost = ${err}`
-    req.status = 400
+    logger("createPost").error(err);
+    req.status = 400;
     next(err);
   }
 }
@@ -61,7 +62,7 @@ async function deletePost(req, res, next) {
     await Comment.deleteMany({ post_id: req.params.post_id });
     next();
   } catch (err) {
-    req.error = `deletePost = ${err}`
+    logger("deletePost").error(err);
     next(err);
   }
 }
@@ -76,6 +77,7 @@ async function editPost(req, res, next) {
     );
     next();
   } catch (err) {
+    logger("editPost").error(err);
     req.status = 400;
     next(err);
   }

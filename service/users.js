@@ -1,6 +1,6 @@
-const { MongoServerError } = require("mongodb");
 const { User, Post, Comment } = require("../connectionMongoose");
 const { hashPassword, checkPassword } = require("../secondaryFunction/auth");
+const logger = require("../utils/logger");
 
 async function getAllUsers(req, res, next) {
   try {
@@ -8,7 +8,7 @@ async function getAllUsers(req, res, next) {
     next();
   } catch (err) {
     req.status = 404;
-    req.error = `getAllUsers = ${err}`;
+    logger("getAllUsers").error(err);
     next(err);
   }
 }
@@ -25,7 +25,7 @@ async function createUser(req, res, next) {
     if (err.code === 11000) {
       return next("Email already registered");
     }
-    req.error = `createUser = ${err}`;
+    logger("createUser").error(err);
     next(err);
   }
 }
@@ -38,7 +38,7 @@ async function deleteUser(req, res, next) {
     await Comment.deleteMany({ user_id });
     next();
   } catch (err) {
-    req.error = `deleteUser = ${err}`;
+    logger("deleteUser").error(err);
     req.status = 404;
     next(err);
   }
@@ -50,14 +50,14 @@ async function findUser(req, res, next) {
     const user = await User.findOne({ email });
     const passwordMatch = await checkPassword(password, user.password);
     if (!passwordMatch) {
-      res.status(401).send("Error password");
+      throw new Error("Error password")
     }
     req._role = "user";
     req.user = user;
     next();
   } catch (err) {
     req.errorRender = "login";
-    req.error = `findUser = ${err}`;
+    logger("findUser").error(err);
     req.status = 404;
     next("User is not found");
   }
