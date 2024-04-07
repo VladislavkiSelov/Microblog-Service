@@ -39,7 +39,7 @@ const commentSchema = new mongoose.Schema({
 
 const imageSchema = new mongoose.Schema({
   post_id: { type: mongoose.Schema.Types.ObjectId, ref: "posts" },
-  image: String,
+  filename: String,
 });
 
 const User = mongoose.model("users", userSchema);

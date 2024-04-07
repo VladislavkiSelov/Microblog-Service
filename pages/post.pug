@@ -7,7 +7,7 @@ block content
             h2= post.titel
             div.box_img-post
                 if image
-                    img(src=`/public/${image}`)
+                    img(src=`${image}`)
                 else 
                     img(src=`/public/uploads/no-image.png`)
             h3= post.description 

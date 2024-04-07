@@ -57,9 +57,8 @@ async function createPost(req, res, next) {
 
 async function deletePost(req, res, next) {
   try {
-    await Post.deleteOne({ _id: req.params.id });
-    await Comment.deleteMany({ post_id: req.params.id });
-    await Image.deleteOne({ post_id: req.params.id });
+    await Post.deleteOne({ _id: req.params.post_id });
+    await Comment.deleteMany({ post_id: req.params.post_id });
     next();
   } catch (err) {
     req.error = `deletePost = ${err}`
@@ -68,19 +67,6 @@ async function deletePost(req, res, next) {
 }
 
 async function editPost(req, res, next) {
-  const { titel, description, post_id } = req.body;
-
-  try {
-    await Post.updateMany(
-      { _id: new ObjectId(post_id) },
-      { $set: { titel, description } }
-    );
-    next();
-  } catch (err) {
-    req.status = 400;
-    next(err);
-  }
-}async function editPost(req, res, next) {
   const { titel, description, post_id } = req.body;
 
   try {

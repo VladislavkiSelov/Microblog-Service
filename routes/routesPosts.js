@@ -3,13 +3,13 @@ const router = express.Router();
 const { createPost, getAllPostsUser, deletePost, editPost } = require("../service/posts");
 const { routerError } = require("../service/error");
 const { validatePostData } = require("../middleware/validationPost");
+const { deleteImage } = require("../service/image");
 
 router.get("/:id", getAllPostsUser, (req, res) => {
   res.send(200);
 });
 
-router.post(
-  "/:id/delete", express.urlencoded({ extended: true }), deletePost, (req, res) => {
+router.post("/:post_id/delete", express.urlencoded({ extended: true }), deleteImage, deletePost, (req, res) => {
     res.redirect("/");
   }
 );
