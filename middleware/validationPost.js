@@ -1,4 +1,5 @@
 const yup = require("yup");
+const logger = require("../utils/logger");
 
 async function validatePostData(req, res, next) {
   const postSchema = yup.object({
@@ -10,6 +11,7 @@ async function validatePostData(req, res, next) {
     await postSchema.validate(req.body);
     next();
   } catch (err) {
+    logger('validatePostData').error(err)
     req.status = 400;
     next(err);
   }

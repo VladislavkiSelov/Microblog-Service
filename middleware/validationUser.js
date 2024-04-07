@@ -1,4 +1,5 @@
 const yup = require("yup");
+const logger = require("../utils/logger");
 
 async function validateUserData(req, res, next) {
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
@@ -12,7 +13,7 @@ async function validateUserData(req, res, next) {
     await userSchema.validate(req.body);
     next();
   } catch (err) {
-    req.error = `validateUserData = ${err}`
+    logger('validateUserData').error(err)
     req.errorRender = 'register';
     next(err);
   }

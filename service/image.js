@@ -2,83 +2,106 @@ const { Image } = require("../connectionMongoose");
 const { ObjectId } = require("mongodb");
 const path = require("path");
 const fs = require("fs");
+const { uploadFileAWS } = require("../secondaryFunction/uploadFileAWS");
+const { getFileAWS } = require("../secondaryFunction/getFileAWS");
+const { deleteFileAWS } = require("../secondaryFunction/deleteFileAWS");
+const logger = require("../utils/logger");
 
 async function createImage(req, res, next) {
   if (!req.file) {
     return res.status(400).send("Нет загруженного файла.");
   }
 
-  const imagePath = path.join("uploads", req.file.filename).replace(/\\/g, "/");
+  const imagePath = path
+    .join(process.cwd(), "static", "uploads", req.file.filename)
+    .replace(/\\/g, "/");
 
   try {
-    await Image.create({ image: imagePath, post_id: req.params.post_id });
+    await Image.create({
+      filename: req.file.filename,
+      post_id: req.params.post_id,
+    });
+    uploadFileAWS(imagePath, req.file.filename);
+    req.imagePath = imagePath;
     next();
   } catch (err) {
-    req.error = `createImage = ${err}`;
+    logger("createImage").error(err);
     res.status(500).send(err);
   }
 }
 
 async function editImage(req, res, next) {
-  if (!req.file) {
-    return res.status(400).send("Нет загруженного файла.");
-  }
-
-  const imagePath = path.join("uploads", req.file.filename).replace(/\\/g, "/");
+  const imagePath = path
+    .join(process.cwd(), "static", "uploads", req.file.filename)
+    .replace(/\\/g, "/");
 
   try {
-    if (!req.findImageDB) {
-      await Image.create({ image: imagePath, post_id: req.params.post_id });
-      next();
+    if (!req.filename) {
+      await Image.create({
+        filename: req.file.filename,
+        post_id: req.params.post_id,
+      });
     } else {
       await Image.updateOne(
         { post_id: new ObjectId(req.params.post_id) },
-        { $set: { image: imagePath } }
+        { $set: { filename: imagePath } }
       );
-      next();
     }
+    uploadFileAWS(imagePath, req.file.filename);
+    req.imagePath = imagePath;
+    next();
   } catch (err) {
-    req.error = `editImage = ${err}`;
+    logger("editImage").error(err);
     res.status(500).send(err);
   }
 }
 
 async function deleteImage(req, res, next) {
   try {
-    const resFindImage = await Image.findOne({
+    const  image  = await Image.findOne({
       post_id: new ObjectId(req.params.post_id),
     });
 
-    if (!resFindImage) {
-      req.findImageDB = false;
+    if (!image) {
+      req.filename = false;
       next();
-    } else {
-      const filePath = path
-        .join(process.cwd(), "static", resFindImage.image)
-        .replace(/\\/g, "/");
-
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          next(err);
-        }
-      });
-      next();
+      return;
     }
+
+    deleteFileAWS(image.filename);
+    await Image.deleteOne({ post_id: req.params.post_id });
+    next();
   } catch (err) {
-    req.error = `deleteImage = ${err}`;
+    logger("deleteImage").error(err);
     next(err);
   }
 }
 
 async function getImage(req, res, next) {
   try {
-    const { image } = await Image.findOne({
+    const { filename } = await Image.findOne({
       post_id: new ObjectId(req.params.id),
     });
+    const image = await getFileAWS(filename, req);
     req.image = image;
     next();
   } catch (err) {
-    req.error = `getImage = ${err}`;
+    logger("getImage").error(err);
+    next();
+  }
+}
+
+async function deleteImageMemory(req, res, next) {
+  try {
+    const { imagePath } = req;
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        throw err
+      }
+    });
+    next();
+  } catch (err) {
+    logger("deleteImageMemory").error(err);
     next();
   }
 }
@@ -88,4 +111,5 @@ module.exports = {
   getImage,
   editImage,
   deleteImage,
+  deleteImageMemory,
 };
