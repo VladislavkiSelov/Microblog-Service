@@ -16,7 +16,6 @@ function uploadFileAWS(filePath, filename) {
       console.log(`Error aws`);
       throw err;
     }
-    console.log(`File uploaded successfully. ${data.Location}`);
   });
 }
 

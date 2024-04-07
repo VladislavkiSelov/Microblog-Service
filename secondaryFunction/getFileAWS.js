@@ -19,7 +19,6 @@ async function getFileAWS(filename) {
       });
     });
 
-    console.log("Signed URL:", url);
     return url;
   } catch (error) {
     console.error("Error getting object from S3:", error);

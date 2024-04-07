@@ -21,6 +21,7 @@ async function createImage(req, res, next) {
       post_id: req.params.post_id,
     });
     uploadFileAWS(imagePath, req.file.filename);
+    req.imagePath = imagePath;
     next();
   } catch (err) {
     req.error = `createImage = ${err}`;
@@ -46,6 +47,7 @@ async function editImage(req, res, next) {
       );
     }
     uploadFileAWS(imagePath, req.file.filename);
+    req.imagePath = imagePath;
     next();
   } catch (err) {
     req.error = `editImage = ${err}`;
@@ -87,9 +89,25 @@ async function getImage(req, res, next) {
   }
 }
 
+async function deleteImageMemory(req, res, next) {
+  try {
+    const { imagePath } = req;
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        throw err
+      }
+    });
+    next();
+  } catch (err) {
+    req.error = `deleteImageMemory = ${err}`;
+    next();
+  }
+}
+
 module.exports = {
   createImage,
   getImage,
   editImage,
   deleteImage,
+  deleteImageMemory,
 };
